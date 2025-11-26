@@ -43,7 +43,7 @@ L’obiettivo è aiutare persone daltoniche a identificare i colori in modo semp
 
 ---
 
-### LCD 1602 (senza I2C) → Arduino
+### LCD 1602 → Arduino
 | LCD Pin | Significato | Arduino |
 |--------|-------------|---------|
 | 1 (VSS) | GND         | GND     |
@@ -56,7 +56,7 @@ L’obiettivo è aiutare persone daltoniche a identificare i colori in modo semp
 | 12 (D5) | Data        | D10 |
 | 13 (D6) | Data        | D11 |
 | 14 (D7) | Data        | D12 |
-| 15 (A)  | Backlight + | 5V |
+| 15 (A)  | Backlight + | 5V via resistenza 220Ω |
 | 16 (K)  | Backlight - | GND |
 
 ---
