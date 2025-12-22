@@ -24,12 +24,14 @@ void goToSleep() {
   lcd.noDisplay();
   digitalWrite(LED_PIN, LOW);
   tcs.disable();
+
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   sleep_enable();
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), wakeUp, LOW);
   sleep_cpu(); 
   detachInterrupt(digitalPinToInterrupt(BUTTON_PIN));
   tcs.enable();
+
   lcd.display();
   lcd.clear();
   lcd.print("Sistema Pronto");
@@ -47,7 +49,28 @@ void setup() {
     lcd.print("Errore Sensore");
     while (1);
   }
-  lcd.print("Pronto!");
+    delay(3000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Clicca il button");
+  lcd.setCursor(0, 1);
+  lcd.print("per scansionare");
+
+  delay(2000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("o tieni premuto");
+  lcd.setCursor(0, 1);
+  lcd.print("per spegnermi!");
+
+  delay(2000);
+  lcd.clear();
+  lcd.print("Via!");
+
+  Serial.println("Sistema pronto.");
+  Serial.println("- Un click: leggi colore");
+  Serial.println("- Tieni premuto 3 sec: SLEEP MODE");
+
 }
 
 void loop() {
@@ -80,21 +103,30 @@ void readColor() {
   lcd.clear();
   lcd.print("Lettura...");
   
-  digitalWrite(LED_PIN, LOW); 
-  delay(250); 
+  digitalWrite(LED_PIN, LOW); // LED ACCESO per lettura consistente
+  delay(300); // Tempo per stabilizzare
 
-  for(int i=0; i<3; i++) {
+  for(int i=0; i<5; i++) { // 5 letture invece di 3
     uint16_t r, g, b, c;
     tcs.getRawData(&r, &g, &b, &c);
     r_s += r; g_s += g; b_s += b; c_s += c;
+    delay(50);
   }
   digitalWrite(LED_PIN, LOW);
 
-  uint16_t c_avg = c_s / 3;
-  float r_n = (float)(r_s/3) / c_avg * 255.0;
-  float g_n = (float)(g_s/3) / c_avg * 255.0;
-  float b_n = (float)(b_s/3) / c_avg * 255.0;
+  // Usa valori medi
+  uint16_t r_avg = r_s / 5;
+  uint16_t g_avg = g_s / 5;
+  uint16_t b_avg = b_s / 5;
+  uint16_t c_avg = c_s / 5;
 
+
+  // Normalizzazione RGB
+  float r_n = (float)r_avg / c_avg * 255.0;
+  float g_n = (float)g_avg / c_avg * 255.0;
+  float b_n = (float)b_avg / c_avg * 255.0;
+
+  // Calcolo HSV
   float h, s, v;
   float maxV = max(max(r_n, g_n), b_n);
   float minV = min(min(r_n, g_n), b_n);
@@ -112,17 +144,18 @@ void readColor() {
 
   const char* colorName = "Sconosciuto";
 
-  if (v < 35) {
-      colorName = "Nero";
-  } else if (s < 15) {
-      if (v > 170) {
-          colorName = "Bianco"; 
-      } else if (v > 90) {
-          colorName = "Grigio Chiaro";
-      } else {
-          colorName = "Grigio Scuro";
-      }
-  } else if (h < 20 || h > 340) { // ROSSO e sfumature (h: 0-20 o 340-360)
+  // nero/bianco/grigi
+  if (v < 40) { // Era 35, leggero aumento
+    colorName = "Nero";
+} else if (s < 15) {
+    if (v > 165) { // Era 170, leggero abbassamento
+        colorName = "Bianco"; 
+    } else if (v > 90) {
+        colorName = "Grigio Chiaro";
+    } else {
+        colorName = "Grigio Scuro";
+    }
+} else if (h < 20 || h > 340) { 
       if (v < 60) {
           colorName = "Rosso Scuro";
       } else if (v < 100) {
@@ -136,7 +169,7 @@ void readColor() {
       } else {
           colorName = s > 40 ? "Rosso Chiaro" : "Rosa";
       }
-  } else if (h < 45) { // ARANCIONE e MARRONE (h: 20-45)
+  } else if (h < 45) {
       if (v < 60) {
           colorName = "Marrone Scuro";
       } else if (v < 100) {
@@ -150,13 +183,13 @@ void readColor() {
       } else {
           colorName = s > 45 ? "Arancione Chiaro" : "Crema";
       }
-  } else if (h < 75) { // GIALLO (h: 45-75)
+  } else if (h < 75) {
       if (v < 70) {
           colorName = "Senape";
       } else {
           colorName = "Giallo";
       }
-  } else if (h < 160) { // VERDE (h: 75-160)
+  } else if (h < 160) {
       if (v < 50) {
           colorName = "Verde Scuro";
       } else if (v < 140) {
@@ -168,7 +201,7 @@ void readColor() {
       } else {
           colorName = s > 40 ? "Verde Chiaro" : "Verde Menta";
       }
-  } else if (h < 210) { // AZZURRO (h: 160-210)
+  } else if (h < 210) {
       if (v < 50) {
           colorName = "Azzurro Scuro";
       } else if (v < 150) {
@@ -176,7 +209,7 @@ void readColor() {
       } else {
           colorName = s > 40 ? "Azzurro Chiaro" : "Celeste";
       }
-  } else if (h < 260) { // BLU (h: 210-260)
+  } else if (h < 260) {
       if (v < 50) {
           colorName = "Blu Notte";
       } else if (v < 100) {
@@ -186,7 +219,7 @@ void readColor() {
       } else {
           colorName = s > 40 ? "Blu Chiaro" : "Blu Pastello";
       }
-  } else if (h < 310) { // VIOLA (h: 260-310)
+  } else if (h < 310) {
       if (v < 50) {
           colorName = "Viola Scuro";
       } else if (v < 100) {
@@ -196,7 +229,7 @@ void readColor() {
       } else {
           colorName = "Lilla Chiaro";
       }
-  } else { // ROSA/FUCSIA (h: 310-340)
+  } else {
       if (v < 60) {
           colorName = "Magenta Scuro";
       } else if (v < 110) {
@@ -209,7 +242,8 @@ void readColor() {
   }
 
   mostraRisultato(colorName);
-  Serial.print("H:"); Serial.print(h);
+  Serial.print("C_avg:"); Serial.print(c_avg);
+  Serial.print(" H:"); Serial.print(h);
   Serial.print(" S:"); Serial.print(s);
   Serial.print(" V:"); Serial.print(v);
   Serial.print(" R:"); Serial.print(r_n);
