@@ -4,7 +4,7 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 
-LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+LiquidCrystal lcd(12, 11, 10, 9, 8, 7);
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_154MS, TCS34725_GAIN_1X);
 
 #define LED_PIN 6
