@@ -8,10 +8,10 @@ Il dispositivo non si limita a nominare il colore, ma funge da vero e proprio co
 
 ## 🚀 Funzionalità principali
 
-- **Rilevamento Alta Precisione:** Utilizza il sensore RGBC **TCS34725** per una lettura fedele dello spettro visibile.
+- **Rilevamento Alta Precisione:** Utilizza il sensore RGB **TCS34725** per una lettura fedele dello spettro visibile.
 - **Conversione Percettiva (HSV):** Trasforma i dati RGB in spazio colore HSV per isolare la tonalità dalla luminosità ambientale, garantendo stabilità nelle letture.
 - **Guida allo Stile:** Suggerisce abbinamenti basati sulla teoria del colore classica e sui canoni della moda contemporanea.
-- **Calibrazione Dinamica:** LED integrato con intensità regolabile (PWM) per compensare diverse condizioni di luce (naturale vs artificiale).
+- **Calibrazione Dinamica:** LED integrato con intensità regolabile per compensare diverse condizioni di luce (naturale vs artificiale).
 
 ---
 
@@ -37,22 +37,11 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 ### Componenti utilizzati
 - **Microcontrollore:** Elegoo UNO R3 (Arduino Compatible)
 - **Sensore:** TCS34725 RGB Color Sensor (I2C)
-- **Display:** LCD 1602 (Interfaccia parallela)
+- **Display:** LCD 1602
 - **Input:** 2x Pulsanti tattili (Scan & Calibrazione)
 
 ### Schema di collegamento (Pinout)
-
-| Componente | Pin Arduino | Descrizione |
-|:--- |:--- |:--- |
-| **TCS34725 SDA** | A4 | Linea Dati I2C |
-| **TCS34725 SCL** | A5 | Linea Clock I2C |
-| **LED Sensore** | D6 | Controllo Luminosità (PWM) |
-| **Pulsante Scan** | D3 | Click: Scan / Hold: Abbinamento |
-| **Pulsante Luce** | D2 | Ciclo intensità LED (0-100) |
-| **LCD RS** | D12 | Register Select |
-| **LCD Enable** | D11 | Abilitazione Dati |
-| **LCD D4-D7** | D10, D9, D8, D7 | Bus Dati LCD |
-
+da definire
 
 
 ---
@@ -65,20 +54,21 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
    - `LiquidCrystal` (Libreria standard)
 
 2. **Caricamento:**
-   Apri il file `.ino` con Arduino IDE e carica lo sketch sulla scheda.
+   Apri il file `main.ino` con Arduino IDE e carica lo sketch sulla scheda.
 
 3. **Utilizzo:**
    - Avvicina il sensore al tessuto.
    - Premi il **Pulsante 3** per identificare il colore.
    - Tieni premuto il **Pulsante 3** per ricevere un consiglio di abbinamento.
-   - Usa il **Pulsante 2** se l'ambiente è troppo buio o troppo luminoso.
+   - Usa il **Pulsante 2** per regolare l'intensità del LED se l'ambiente è troppo buio o troppo luminoso.
 
 ---
 
 ## 🔮 Sviluppi Futuri
-- [ ] **Sintesi Vocale:** Feedback audio per ipovedenti.
-- [ ] **App Mobile:** Collegamento Bluetooth per salvare il proprio guardaroba.
-- [ ] **Miniaturizzazione:** Versione tascabile basata su Arduino Nano.
+- [ ] **Integrazione Bluetooth e App Mobile** 
+- [ ] **Sintesi Vocale**
+- [ ] **Database Espandibile**
+- [ ] **Personalizzazione Utente**
 
 ---
 
