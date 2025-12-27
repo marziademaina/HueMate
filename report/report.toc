@@ -1,0 +1,20 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Introduzione}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Obiettivi del progetto}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Analisi del problema}{2}{section.2}%
+\contentsline {section}{\numberline {3}Architettura del sistema}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Componenti hardware}{3}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Microcontrollore Arduino}{4}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Sensore di colore TCS34725}{4}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Display LCD 16x2}{4}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Due pulsanti di input}{4}{subsubsection.3.1.4}%
+\contentsline {section}{\numberline {4}Implementazione}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Trasformazione da RGB a HSV}{5}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Il Canale Clear \textit {C}}{6}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Abbinamento dei colori}{6}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Fase di testing}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Regolazione dell’intensità luminosa e calibrazione}{7}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Organizzazione della Repository}{7}{section.6}%
+\contentsline {section}{\numberline {7}Conclusioni}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Sviluppi Futuri}{8}{subsection.7.1}%
