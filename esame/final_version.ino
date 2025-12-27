@@ -12,8 +12,8 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_154MS, TCS347
 
 // -------------------- Pin --------------------
 #define LED_PIN        6          // Pin PWM del LED
-#define SCAN_BTN_PIN   2          // Pulsante principale (scan / suggerimento)
-#define LIGHT_BTN_PIN  3          // Pulsante secondario (cambia intensità LED)
+#define SCAN_BTN_PIN   3          // Pulsante principale (scan / suggerimento)
+#define LIGHT_BTN_PIN  2          // Pulsante secondario (cambia intensità LED)
 
 // -------------------- Livelli LED --------------------
 const uint8_t LIGHT_LEVELS[] = {0, 20, 40, 60, 80, 100};                         // Livelli PWM disponibili
@@ -79,13 +79,13 @@ void setup() {
   showHome();                                                      // Schermata home
 
   Serial.println("Sistema pronto.");                               // Debug
-  Serial.println("Click breve BTN2: scan");                        // Debug
-  Serial.println("Press lungo BTN2: abbina");                      // Debug
-  Serial.println("BTN3: livello luce");                            // Debug
+  Serial.println("Click breve BTN3: scan");                        // Debug
+  Serial.println("Press lungo BTN3: abbina");                      // Debug
+  Serial.println("BTN2: livello luce");                            // Debug
 }
 
 void loop() {
-  // -------------------- 1) Gestione pulsante LUCE (BTN3) --------------------
+  // -------------------- 1) Gestione pulsante LUCE (BTN2) --------------------
   bool lightBtnState = digitalRead(LIGHT_BTN_PIN);                 // Legge stato bottone luce
 
   if (lastLightBtnState == HIGH && lightBtnState == LOW) {         // Fronte di discesa = click
@@ -122,7 +122,7 @@ void loop() {
   }
 }
 
-  // -------------------- 3) Gestione pulsante SCAN (BTN2) breve vs lungo --------------------
+  // -------------------- 3) Gestione pulsante SCAN (BTN3) breve vs lungo --------------------
   bool scanBtnState = digitalRead(SCAN_BTN_PIN);                   // Legge bottone scan
 
   // --- Pressione iniziata ---
@@ -175,14 +175,14 @@ void loop() {
 void showHome() {
   lcd.clear();                                                     // Pulisce LCD
   lcd.setCursor(0, 0);                                             // Riga 1
-  lcd.print("BTN2: Click=Scan");                                   // Istruzioni
+  lcd.print("BTN3: Click=Scan");                                   // Istruzioni
   lcd.setCursor(0, 1);                                             // Riga 2
   lcd.print("Hold=Abbinamento");                                   // Istruzioni (pulsante lungo)
 
   delay(3000);
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("BTN3: Intensita'");                                   
+  lcd.print("BTN2: Intensita'");                                   
   lcd.setCursor(0, 1);                                             
   lcd.print("del Led (0-100)");                                   
 
@@ -410,3 +410,4 @@ void mostraRisultato(const char* line1, const char* line2) {
   lcd.setCursor(0, 1);
   lcd.print(lastScreenLine2);
 }
+
