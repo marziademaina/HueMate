@@ -7,11 +7,11 @@
 LiquidCrystal lcd(12, 11, 10, 9, 8, 7); // Pin LCD: RS, E, D4, D5, D6, D7
 
 // -------------------- Sensore --------------------
-// Nota: GAIN_4X = più sensibilità (attenzione a saturazione con LED alto e oggetto vicino)
+// GAIN_4X ha più sensibilità (a rischio saturazione con intensità alta e oggetto vicino)
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_154MS, TCS34725_GAIN_4X);
 
 // -------------------- Pin --------------------
-#define LED_PIN        6          // Pin PWM del LED
+#define LED_PIN        6          // Pin del LED integrato
 #define SCAN_BTN_PIN   3          // Pulsante principale (scan / suggerimento)
 #define LIGHT_BTN_PIN  2          // Pulsante secondario (cambia intensità LED)
 
@@ -199,14 +199,14 @@ void showLedLevelOnLCD() {
 
   if (ledBrightness == 0) lcd.print("OFF");                        // LED spento
   else if (ledBrightness == 20) lcd.print("Bassa");                // Bassa
-  else if (ledBrightness == 40) lcd.print("Media")   ;              // Media
-  else if (ledBrightness == 60) lcd.print("Media-Alta");           // Media-Alta
-  else if (ledBrightness == 80) lcd.print("Alta");
-  else lcd.print("Massima");                                          // Alta
+  else if (ledBrightness == 40) lcd.print("Media")   ;             // Media
+  else if (ledBrightness == 60) lcd.print("Medio-Alta");           // Medio-Alta
+  else if (ledBrightness == 80) lcd.print("Alta");                 // Alta
+  else lcd.print("Massima");                                       // Massima
 
   lcd.setCursor(0, 1);                                             // Riga 2
   lcd.print("Intensita': ");
-  lcd.print(ledBrightness);                                        // Valore PWM
+  lcd.print(ledBrightness);                                        // Valore intensità luce
 
   ledMsgStart = millis();                                          // Salva tempo inizio messaggio
   showLedMsg = true;                                               // Attiva flag
@@ -265,19 +265,19 @@ void readColorHSVBase(char* outBase, char* outTone, bool* ok) {
   uint16_t c_avg = (uint16_t)(c_s / NUM_SAMPLES);                  // Media C
 
   if (c_avg < C_MIN_VALID) {                                       // Troppo buio
-    mostraRisultato("Troppo buio", "Aumenta luce");                // LCD
-    Serial.print("LED:"); Serial.print(ledBrightness);             // Debug
-    Serial.print(" C:");  Serial.print(c_avg);                     // Debug
-    Serial.println(" -> TOO DARK");                                // Debug
-    return;                                                        // Esce
+    mostraRisultato("Troppo buio", "Aumenta luce");                
+    Serial.print("LED:"); Serial.print(ledBrightness);             
+    Serial.print(" C:");  Serial.print(c_avg);                     
+    Serial.println(" -> TOO DARK");                                
+    return;                                                        
   }
 
   if (c_avg > C_MAX_VALID) {                                       // Troppa luce
-    mostraRisultato("Troppa luce", "Riduci luce");                 // LCD
-    Serial.print("LED:"); Serial.print(ledBrightness);             // Debug
-    Serial.print(" C:");  Serial.print(c_avg);                     // Debug
-    Serial.println(" -> TOO BRIGHT");                              // Debug
-    return;                                                        // Esce
+    mostraRisultato("Troppa luce", "Riduci luce");                 
+    Serial.print("LED:"); Serial.print(ledBrightness);             
+    Serial.print(" C:");  Serial.print(c_avg);                     
+    Serial.println(" -> TOO BRIGHT");                              
+    return;                                                        
   }
 
   // --- Normalizzazione su C in scala 0..255 ---
@@ -336,7 +336,7 @@ void readColorHSVBase(char* outBase, char* outTone, bool* ok) {
     }
     *ok = true;                                                    // Valida
   }
-  // COLORI: confini "umani" (H=38 -> GIALLO)
+  // COLORI
   else {
     const char* base = "COLORE";                                   // Default
 
@@ -380,18 +380,18 @@ void suggestMatch() {
   const char* match = "NERO/BIANCO";                               // Default
 
   // Suggerimenti semplici (robusti)
-  if      (strcmp(lastBase, "ROSSO") == 0)     match = "BLU o BIANCO";
-  else if (strcmp(lastBase, "ARANCIONE") == 0) match = "BIANCO o NERO";
-  else if (strcmp(lastBase, "GIALLO") == 0)    match = "BLU";
-  else if (strcmp(lastBase, "VERDE") == 0)     match = "BIANCO o ROSA";
-  else if (strcmp(lastBase, "AZZURRO") == 0)   match = "BIANCO o ROSA";
-  else if (strcmp(lastBase, "BLU") == 0)       match = "BIANCO o MARRONE";
-  else if (strcmp(lastBase, "VIOLA") == 0)     match = "GRIGIO o MARRONE";
-  else if (strcmp(lastBase, "GRIGIO") == 0)    match = "BIANCO o VERDE";
+  if      (strcmp(lastBase, "ROSSO") == 0)     match = "BLU";
+  else if (strcmp(lastBase, "ARANCIONE") == 0) match = "NERO";
+  else if (strcmp(lastBase, "GIALLO") == 0)    match = "AZZURRO";
+  else if (strcmp(lastBase, "VERDE") == 0)     match = "VIOLA";
+  else if (strcmp(lastBase, "AZZURRO") == 0)   match = "BLU";
+  else if (strcmp(lastBase, "BLU") == 0)       match = "ARANCIONE";
+  else if (strcmp(lastBase, "VIOLA") == 0)     match = "GRIGIO";
+  else if (strcmp(lastBase, "GRIGIO") == 0)    match = "QUASI TUTTO";
   else if (strcmp(lastBase, "BIANCO") == 0)    match = "QUASI TUTTO";
   else if (strcmp(lastBase, "NERO") == 0)      match = "QUASI TUTTO";
 
-  mostraRisultato("Abbinamento: ", match);                               // Mostra suggerimento
+  mostraRisultato("Abbinamento: ", match);                           // Mostra suggerimento
 }
 
 // -------------------- LCD helper --------------------
@@ -410,4 +410,3 @@ void mostraRisultato(const char* line1, const char* line2) {
   lcd.setCursor(0, 1);
   lcd.print(lastScreenLine2);
 }
-
