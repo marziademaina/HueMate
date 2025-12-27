@@ -387,7 +387,7 @@ void suggestMatch() {
   else if (strcmp(lastBase, "AZZURRO") == 0)   match = "BIANCO o ROSA";
   else if (strcmp(lastBase, "BLU") == 0)       match = "BIANCO o MARRONE";
   else if (strcmp(lastBase, "VIOLA") == 0)     match = "GRIGIO o MARRONE";
-  else if (strcmp(lastBase, "GRIGIO") == 0)    match = "BIANCO o ROSSO";
+  else if (strcmp(lastBase, "GRIGIO") == 0)    match = "BIANCO o VERDE";
   else if (strcmp(lastBase, "BIANCO") == 0)    match = "QUASI TUTTO";
   else if (strcmp(lastBase, "NERO") == 0)      match = "QUASI TUTTO";
 
