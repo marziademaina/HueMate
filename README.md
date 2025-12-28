@@ -1,4 +1,4 @@
-# 🎨 HueMate - Color Assistant per Daltonici
+# 🎨 HueMate - Selettore di colori per daltonici
 
 **HueMate** è un progetto basato su Arduino progettato per supportare le persone con discromatopsia (daltonismo) nell'identificazione accurata dei colori e nella scelta di abbinamenti stilistici armoniosi.
 
