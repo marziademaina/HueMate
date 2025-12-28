@@ -60,7 +60,7 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 | **D5**| Bus dati bit 5 | D9 |
 | **D6** | Bus dati bit 6 | D8 | 
 | **D7** | Bus dati bit 7 | D7 |
-| **A** | Anodo retroilluminazione | 5V via resistenza 220 &omega | 
+| **A** | Anodo retroilluminazione | 5V via resistenza 220 Ω | 
 | **K** | Catodo retroilluminazione | GND |
 
 ---
