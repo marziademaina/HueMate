@@ -40,8 +40,8 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 - **Display:** LCD 1602
 - **Input:** 2x Pulsanti tattili (Scan & Calibrazione)
 
-### Schema di collegamento 
-!(report/media/Simulazione_HueMate.png)
+### Schema di collegamento
+![Collegamenti](report/media/Simulazione HueMate.png)
 
 
 
