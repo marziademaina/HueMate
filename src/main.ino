@@ -16,11 +16,11 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_154MS, TCS347
 #define LIGHT_BTN_PIN  2          // Pulsante secondario (cambia intensità LED)
 
 // -------------------- Livelli LED --------------------
-const uint8_t LIGHT_LEVELS[] = {0, 20, 40, 60, 80, 100};                         // Livelli PWM disponibili
+const uint8_t LIGHT_LEVELS[] = {0, 20, 40, 60, 80, 100};                          // Livelli intensità luce led
 const uint8_t NUM_LIGHT_LEVELS = sizeof(LIGHT_LEVELS) / sizeof(LIGHT_LEVELS[0]);  // Numero livelli
 
-uint8_t ledLevelIndex = 2;                 // Indice livello (parte da 40)
-uint8_t ledBrightness = LIGHT_LEVELS[2];   // PWM corrente
+uint8_t ledLevelIndex = 1;                 // Indice livello (parte da 20)
+uint8_t ledBrightness = LIGHT_LEVELS[1];
 
 // -------------------- Messaggio LED su LCD --------------------
 bool showLedMsg = false;                   // Se true, stiamo mostrando "Luce: ..."
@@ -49,7 +49,7 @@ bool hasLastScreen = false;
 // -------------------- Prototipi --------------------
 void showHome();                                                   // Schermata home
 void showLedLevelOnLCD();                                          // Mostra livello LED
-void mostraRisultato(const char* line1, const char* line2);        // Stampa 2 righe su LCD
+void showResult(const char* line1, const char* line2);             // Stampa 2 righe su LCD
 void readColorHSVBase(char* outBase, char* outTone, bool* ok);     // Scansione colore (HSV base)
 void suggestMatch();                                               // Suggerisce colore abbinato
 
@@ -132,7 +132,6 @@ void loop() {
     longPressActionDone = false;                                   // Reset: non abbiamo ancora fatto long press
   }
 
-  // --- Durante pressione: se supera soglia, fai suggerimento una sola volta ---
   if (scanBtnDown && scanBtnState == LOW) {                        // Se ancora premuto
     unsigned long held = millis() - scanBtnDownMs;                 // Durata pressione
 
@@ -265,18 +264,18 @@ void readColorHSVBase(char* outBase, char* outTone, bool* ok) {
   uint16_t c_avg = (uint16_t)(c_s / NUM_SAMPLES);                  // Media C
 
   if (c_avg < C_MIN_VALID) {                                       // Troppo buio
-    mostraRisultato("Troppo buio", "Aumenta luce");                
+    showResult("Troppo buio", "Aumenta luce");                
     Serial.print("LED:"); Serial.print(ledBrightness);             
     Serial.print(" C:");  Serial.print(c_avg);                     
-    Serial.println(" -> TOO DARK");                                
+    Serial.println(" -> Troppo buio");                                
     return;                                                        
   }
 
   if (c_avg > C_MAX_VALID) {                                       // Troppa luce
-    mostraRisultato("Troppa luce", "Riduci luce");                 
+    showResult("Troppa luce", "Riduci luce");                 
     Serial.print("LED:"); Serial.print(ledBrightness);             
     Serial.print(" C:");  Serial.print(c_avg);                     
-    Serial.println(" -> TOO BRIGHT");                              
+    Serial.println(" -> Troppa luce");                              
     return;                                                        
   }
 
@@ -352,32 +351,31 @@ void readColorHSVBase(char* outBase, char* outTone, bool* ok) {
 
     if (v >= V_LIGHT) strcpy(outTone, "Chiaro");                   // Chiaro
     else if (v <= V_DARK) strcpy(outTone, "Scuro");                // Scuro
-    else outTone[0] = '\0';                                        // Niente "Medio"
+    else outTone[0] = '\0';                                        
 
     *ok = true;                                                    // Valida
   }
 
   // -------------------- Output su LCD --------------------
-  mostraRisultato(outBase, outTone);                               // Stampa base e tonalità
+  showResult(outBase, outTone);                               // Stampa base e tonalità
 
-  // -------------------- Log --------------------
-  Serial.print("LED:"); Serial.print(ledBrightness);               // Debug
-  Serial.print(" C:");  Serial.print(c_avg);                       // Debug
-  Serial.print(" H:");  Serial.print(h, 1);                        // Debug
-  Serial.print(" S:");  Serial.print(s, 1);                        // Debug
-  Serial.print(" V:");  Serial.print(v, 1);                        // Debug
-  Serial.print(" -> "); Serial.print(outBase);                     // Debug
-  Serial.print(" | ");  Serial.println(outTone);                   // Debug
+  Serial.print("LED:"); Serial.print(ledBrightness);               
+  Serial.print(" C:");  Serial.print(c_avg);                       
+  Serial.print(" H:");  Serial.print(h, 1);                        
+  Serial.print(" S:");  Serial.print(s, 1);                        
+  Serial.print(" V:");  Serial.print(v, 1);                        
+  Serial.print(" -> "); Serial.print(outBase);                     
+  Serial.print(" | ");  Serial.println(outTone);                   
 }
 
 // -------------------- Suggerimento abbinamento --------------------
 void suggestMatch() {
-  if (!hasLastColor) {                                             // Se non ho una scansione valida
-    mostraRisultato("Scansiona", "prima un colore");               // Messaggio
-    return;                                                        // Esce
+  if (!hasLastColor) {                                        // Se non ho una scansione valida
+    showResult("Scansiona", "prima un colore");               // Messaggio
+    return;                                                   
   }
 
-  const char* match = "NERO/BIANCO";                               // Default
+  const char* match = "NERO/BIANCO";                          // Default
 
   // Suggerimenti semplici (robusti)
   if      (strcmp(lastBase, "ROSSO") == 0)     match = "BLU";
@@ -391,11 +389,10 @@ void suggestMatch() {
   else if (strcmp(lastBase, "BIANCO") == 0)    match = "QUASI TUTTO";
   else if (strcmp(lastBase, "NERO") == 0)      match = "QUASI TUTTO";
 
-  mostraRisultato("Abbinamento: ", match);                           // Mostra suggerimento
+  showResult("Abbinamento: ", match);                           
 }
-
 // -------------------- LCD helper --------------------
-void mostraRisultato(const char* line1, const char* line2) {
+void showResult(const char* line1, const char* line2) {
   // Salva l'ultima schermata "importante" (colore, abbina, messaggi)
   strncpy(lastScreenLine1, line1, 16);
   lastScreenLine1[16] = '\0';
@@ -410,3 +407,4 @@ void mostraRisultato(const char* line1, const char* line2) {
   lcd.setCursor(0, 1);
   lcd.print(lastScreenLine2);
 }
+
