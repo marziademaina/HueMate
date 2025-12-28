@@ -98,6 +98,6 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 ---
 
 ## 📝 Licenza del documento
-HueMate - Selettore di colori per daltonici  © 2025 by Marzia De Maina is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+HueMate - Selettore di colori per daltonici © 2025 di Marzia De Maina è autorizzato sotto CC BY-NC-SA 4.0. Per visualizzare una copia di questa licenza, visita https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 
