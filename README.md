@@ -85,10 +85,10 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 ---
 
 ## 🔮 Sviluppi futuri
-- [ ] **Integrazione Bluetooth e App Mobile** 
-- [ ] **Sintesi Vocale**
-- [ ] **Database Espandibile**
-- [ ] **Personalizzazione Utente**
+- **Integrazione Bluetooth e App Mobile** 
+- **Sintesi Vocale**
+- **Database Espandibile**
+- **Personalizzazione Utente**
 
 ---
 
