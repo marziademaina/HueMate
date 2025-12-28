@@ -41,7 +41,7 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 - **Input:** 2x Pulsanti tattili (Scan & Calibrazione)
 
 ### Schema di collegamento
-![Collegamenti](report/media/Simulazione_HueMate.png)
+![Simulazione di sistema](report/media/Simulazione_HueMate.png)
 
 
 
