@@ -35,7 +35,7 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 - **Microcontrollore:** Elegoo UNO R3 (Arduino Compatible)
 - **Sensore:** TCS34725 RGB Color Sensor (I2C)
 - **Display:** LCD 1602
-- **Input:** 2x Pulsanti tattili (Scan & Calibrazione)
+- **Input:** 2x Pulsanti tattili (Scan - Pin D3 & Calibrazione luce led - Pin D2)
 
 ### Schema di collegamento
 
