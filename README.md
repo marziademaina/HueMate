@@ -13,7 +13,7 @@ Il dispositivo non si limita a nominare il colore, ma funge da vero e proprio co
 
 ---
 
-## 🧠 La Logica del Sistema
+## 🧠 La logica del sistema
 ### Spazio Colore HSV (Hue, Saturation, Value)
 Per ovviare ai limiti del modello RGB (estremamente sensibile alle ombre), il software implementa l'algoritmo di **Alvy Ray Smith (1978)**.
 - **Hue (H):** identifica il colore puro su una ruota cromatica di 360°.
@@ -22,14 +22,14 @@ Per ovviare ai limiti del modello RGB (estremamente sensibile alle ombre), il so
 
 
 
-### Algoritmo di Abbinamento
+### Algoritmo di abbinamento
 La logica di abbinamento integra il gusto estetico con la teoria del colore:
 - **Neutri:** per Bianco e Nero il sistema suggerisce "Quasi tutto", fornendo sicurezza immediata all'utente.
 - **Colori Saturi:** suggerimenti mirati per evitare contrasti stridenti.
 
 ---
 
-## 🛠️ Hardware e Collegamenti
+## 🛠️ Hardware e collegamenti
 
 ### Componenti utilizzati
 - **Microcontrollore:** Elegoo UNO R3 (Arduino Compatible)
@@ -38,7 +38,6 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 - **Input:** 2x Pulsanti tattili (Scan - Pin D3 & Calibrazione luce led - Pin D2)
 
 ### Schema di collegamento
-
 
 | PIN TCS34725 | UTILIZZO | PIN ARDUINO |
 | :--- | :--- | :--- |
@@ -65,17 +64,19 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 
 ---
 
-## 📦 Installazione e Uso
+## 📦 Installazione e uso
 
 1. **Librerie richieste:**
    Installa tramite Arduino Library Manager:
+   - `Wire` (Libreria standard)
    - `Adafruit TCS34725`
    - `LiquidCrystal` (Libreria standard)
+   - `string` (Libreria standard)
 
-2. **Caricamento:**
+3. **Caricamento:**
    Apri il file `main.ino` con Arduino IDE e carica lo sketch sulla scheda.
 
-3. **Utilizzo:**
+4. **Utilizzo:**
    - Avvicina il sensore al tessuto.
    - Premi il **Pulsante 3** per identificare il colore.
    - Tieni premuto il **Pulsante 3** per ricevere un consiglio di abbinamento.
@@ -83,7 +84,7 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 
 ---
 
-## 🔮 Sviluppi Futuri
+## 🔮 Sviluppi futuri
 - [ ] **Integrazione Bluetooth e App Mobile** 
 - [ ] **Sintesi Vocale**
 - [ ] **Database Espandibile**
@@ -93,3 +94,9 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 
 ## 🖋️ Autore
 **Marzia De Maina** *Studentessa di Informatica (LM-18)* *Università di Bologna*
+
+---
+
+## 📝 Licenza del documento
+HueMate – Selettore di colori per daltonici © 2025 di Marzia De Maina è concesso in licenza sotto Creative Commons Attribution-ShareAlike 4.0 International. Per visualizzare una copia di questa licenza, visitare https://creativecommons.org/licenses/by-sa/4.0/.
+
