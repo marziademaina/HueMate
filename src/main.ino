@@ -363,7 +363,10 @@ void readColorHSVBase(char* outBase, char* outTone, bool* ok) {
   Serial.print(" C:");  Serial.print(c_avg);                       
   Serial.print(" H:");  Serial.print(h, 1);                        
   Serial.print(" S:");  Serial.print(s, 1);                        
-  Serial.print(" V:");  Serial.print(v, 1);                        
+  Serial.print(" V:");  Serial.print(v, 1); 
+  Serial.print(" | R:");  Serial.print(r_n, 1);                        
+  Serial.print(" G:");  Serial.print(g_n, 1);                        
+  Serial.print(" B:");  Serial.print(b_n, 1);
   Serial.print(" -> "); Serial.print(outBase);                     
   Serial.print(" | ");  Serial.println(outTone);                   
 }
