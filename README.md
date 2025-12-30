@@ -6,16 +6,16 @@ Il dispositivo non si limita a nominare il colore, ma funge da vero e proprio co
 ---
 
 ## 🚀 Funzionalità principali
-- **Rilevamento Alta Precisione:** utilizza il sensore RGB **TCS34725** per una lettura fedele dello spettro visibile.
+- **Rilevamento Colori RGB:** utilizza il sensore RGB **TCS34725** per una lettura affidabile dei canali RGB + clear.
 - **Conversione Percettiva (HSV):** trasforma i dati RGB in spazio colore HSV per isolare la tonalità dalla luminosità ambientale, garantendo stabilità nelle letture.
-- **Guida allo Stile:** suggerisce abbinamenti basati sui canoni della moda contemporanea.
+- **Guida allo Stile:** suggerisce abbinamenti cromatici pensati per l'abbigliamento.
 - **Calibrazione Dinamica:** LED integrato con intensità regolabile per compensare diverse condizioni di luce (naturale vs artificiale).
 
 ---
 
 ## 🧠 La logica del sistema
 ### Spazio Colore HSV (Hue, Saturation, Value)
-Per ovviare ai limiti del modello RGB (estremamente sensibile alle ombre), il software implementa l'algoritmo di **Alvy Ray Smith (1978)**.
+Per ovviare ai limiti del modello RGB (estremamente sensibile alle ombre), il software usa una conversione RGB→HSV **(Alvy Ray Smith, 1978)**.
 - **Hue (H):** identifica il colore puro su una ruota cromatica di 360°.
 - **Saturation (S):** permette di distinguere i colori "vivi" dalle tonalità neutre (Nero/Bianco/Grigio).
 - **Value (V):** definisce se un colore è "Chiaro" o "Scuro".
@@ -68,15 +68,17 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 
 1. **Librerie richieste:**
    Installa tramite Arduino Library Manager:
-   - `Wire` (Libreria standard)
-   - `Adafruit TCS34725`
-   - `LiquidCrystal` (Libreria standard)
-   - `string` (Libreria standard)
+   - `Adafruit\_TCS34725`
+     
+   Già incluse in Arduino IDE:
+   - `Wire`
+   - `LiquidCrystal`
+   - `string.h`
 
-3. **Caricamento:**
-   Apri il file `main.ino` con Arduino IDE e carica lo sketch sulla scheda.
+2. **Caricamento:**
+   Apri il file `src/main.ino` con Arduino IDE e carica lo sketch sulla scheda.
 
-4. **Utilizzo:**
+3. **Utilizzo:**
    - Avvicina il sensore al tessuto.
    - Premi il **Pulsante 3** per identificare il colore.
    - Tieni premuto il **Pulsante 3** per ricevere un consiglio di abbinamento.
