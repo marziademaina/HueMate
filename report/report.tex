@@ -85,11 +85,11 @@ L’obiettivo principale del progetto HueMate è la realizzazione di un disposit
 
 In particolare, il progetto si pone i seguenti obiettivi:
 \begin{itemize}
-    \item[-] sviluppare uno strumento semplice e intuitivo per il riconoscimento dei colori principali;
-    \item[-] fornire un supporto pratico all’abbinamento dei colori, con particolare riferimento all’uso quotidiano dell’abbigliamento;
-    \item[-] garantire un’interazione accessibile, basata su pochi comandi chiari e su un feedback testuale immediato;
-    \item[-] esplorare l’utilizzo di componenti hardware a basso costo e facilmente reperibili nell’ambito del making;
-    \item[-] progettare un sistema flessibile, calibrabile manualmente, in grado di adattarsi a diverse condizioni di illuminazione.
+    \item[-] sviluppare uno \textbf{strumento semplice e intuitivo} per il riconoscimento dei colori principali;
+    \item[-] fornire un \textbf{supporto pratico all’abbinamento dei colori}, con particolare riferimento all’uso quotidiano dell’abbigliamento;
+    \item[-] garantire un’\textbf{interazione accessibile}, basata su pochi comandi chiari e su un feedback testuale immediato;
+    \item[-] esplorare l’\textbf{utilizzo di componenti hardware} a basso costo e facilmente reperibili nell’ambito del making;
+    \item[-] progettare un \textbf{sistema flessibile, calibrabile} manualmente, in grado di adattarsi a diverse condizioni di illuminazione.
 \end{itemize}
 
 Un ulteriore obiettivo del progetto è stato quello di sperimentare un approccio progettuale orientato all’inclusività, dimostrando come l’elettronica e la programmazione possano essere utilizzate per rispondere a esigenze reali, con particolare attenzione all’autonomia dell’utente finale.
@@ -107,16 +107,16 @@ In casi rari si parla anche di \textbf{acromatopsia}, ovvero quella condizione p
     \centering
     \includegraphics[width=\linewidth]{media/daltonismo.png}
     \caption{Alterazioni del senso cromatico}
-    \text{crediti figura \ref{fig:alterazioni}: Università Vita-Salute San Raffaele, https://blog.unisr.it/alterazioni-senso-cromatico}
+    \text{crediti figura \ref{fig:alterazioni}: Università Vita-Salute San Raffaele, \url{https://blog.unisr.it/alterazioni-senso-cromatico}}
     \label{fig:alterazioni}
 \end{figure}
 
 HueMate nasce per abbattere queste barriere: il software elabora e differenzia con precisione le tonalità di rosso, verde e blu, restituendo all'utente una visione più chiara, sicura e contrastata del mondo circostante.
 
 \section{Architettura del sistema}
-Il sistema HueMate è strutturato secondo un’architettura integrata hardware--software, in cui un microcontrollore gestisce l’acquisizione dei dati dal sensore di colore, l’elaborazione delle informazioni cromatiche e l’interazione con l’utente attraverso pulsanti e display.
+Il sistema HueMate è strutturato secondo un’\textbf{architettura integrata hardware--software}, in cui un microcontrollore gestisce l’acquisizione dei dati dal sensore di colore, l’elaborazione delle informazioni cromatiche e l’interazione con l’utente attraverso pulsanti e display.
 
-L’architettura è stata progettata per essere semplice, modulare e facilmente comprensibile, in linea con gli obiettivi di accessibilità e affidabilità del progetto. Ogni componente svolge un ruolo ben definito, riducendo la complessità complessiva del sistema.
+L’architettura è stata progettata per essere semplice, modulare e facilmente comprensibile, in linea con gli obiettivi di accessibilità e affidabilità del progetto. Ogni componente svolge un ruolo ben definito, riducendo la complessità del sistema.
 
 \subsection{Componenti hardware}
 Il sistema è stato realizzato come in Figura \ref{fig:collegamenti}.
@@ -200,12 +200,12 @@ I colori mappati includono:
 Tutti i colori vengono distinti anche in \textit{chiaro} o \textit{scuro}.
 
 \subsection{Trasformazione da RGB a HSV}
-Sebbene il sensore \texttt{TCS34725} fornisca dati nel formato \textit{RGB}, tale modello risulta inefficiente per la classificazione dei colori in condizioni di luce variabile. Per ovviare a questo problema, \textbf{HueMate} esegue una trasformazione matematica dei dati grezzi nello spazio colore HSV (\textit{Hue, Saturation, Value}).
+Sebbene il sensore \texttt{TCS34725} fornisca dati nel formato \textit{RGB}, tale modello risulta inefficiente per la classificazione dei colori in condizioni di luce variabile. Per ovviare a questo problema, HueMate esegue una \textbf{trasformazione matematica} dei dati grezzi nello spazio colore \textbf{HSV} (\textit{Hue, Saturation, Value}).
 La scelta di migrare al modello HSV è dettata da tre ragioni fondamentali:
 
 \begin{enumerate} 
     \item \textbf{indipendenza dalla luminosità (value):} nel modello RGB, se la luce ambientale cambia, tutti e tre i valori (R, G, B) cambiano drasticamente, rendendo difficile capire se si sta guardando lo stesso colore più scuro o un colore diverso. Nell'HSV, la componente \textbf{V} isola la luminosità; questo permette all'algoritmo di identificare la tonalità (\textbf{H}) indipendentemente dal fatto che il sensore sia sotto una luce forte o in ombra. 
-    \item \textbf{identificazione intuitiva della tonalità (hue):} La componente \textbf{H} rappresenta il colore puro espresso in gradi tra \textbf{0} e \textbf{360} su una ruota cromatica. Come visibile nel codice implementato, è stato possibile definire dei range precisi:
+    \item \textbf{identificazione intuitiva della tonalità (hue):} la componente \textbf{H} rappresenta il colore puro espresso in gradi tra \textbf{0} e \textbf{360} su una ruota cromatica. Come visibile nel codice implementato, è stato possibile definire dei range precisi:
     \begin{lstlisting}
     if (h < 20.0f || h >= 340.0f) base = "ROSSO";    // Rosso
     else if (h < 35.0f)          base = "ARANCIONE"; // Arancione
@@ -285,9 +285,16 @@ I test sono stati condotti in diverse condizioni di illuminazione per verificare
 \textbf{HueMate} permette una calibrazione dinamica dell'intensità del LED per compensare la luce ambientale. Dalle prove effettuate, sono emersi i seguenti parametri di riferimento per una lettura ottimale:
 \begin{itemize} 
     \item[-] \textbf{condizioni diurne (luce naturale):} è lo scenario preferibile. Anche se il test avviene in ambiente chiuso, la luce naturale garantisce una resa cromatica più fedele. In questo caso, si consiglia di impostare il LED di supporto a un'intensità bassa, tra \textbf{20} e \textbf{40}, per evitare la sovraesposizione del sensore. 
-    \item[-] \textbf{condizioni serali/artificiali:} il sistema mantiene un'alta affidabilità incrementando la potenza del LED integrato a valori compresi tra \textbf{40} e \textbf{80}. Questo permette di \textit{isolare} il colore del tessuto dalle dominanti gialle o fredde delle lampadine domestiche. 
+    \item[-] \textbf{condizioni serali/artificiali:} il sistema mantiene una buona affidabilità incrementando la potenza del LED integrato a valori compresi tra \textbf{40} e \textbf{80}. Questo permette di \textit{isolare} il colore del tessuto dalle dominanti gialle o fredde delle lampadine domestiche. 
 \end{itemize} 
 Poiché ogni ambiente presenta caratteristiche uniche, l'utente è incoraggiato a sperimentare con i pulsanti di regolazione fino a ottenere una lettura stabile.
+
+\subsection{Considerazioni sui materiali analizzati}
+Durante la fase di testing è emerso che la \textbf{tipologia di tessuto analizzato} influisce in modo significativo sulla \textbf{qualità della lettura cromatica}.
+
+In particolare, si consiglia di \textit{evitare materiali lucidi} o \textit{altamente riflettenti}, poiché la riflessione diretta della luce del LED integrato può causare fenomeni di sovraesposizione e saturazione del sensore, alterando i valori RGB rilevati.
+
+Al contrario, i tessuti opachi e a trama naturale (come cotone, lana o lino) offrono una diffusione più uniforme della luce, consentendo al sensore TCS34725 di acquisire dati cromatici più stabili e affidabili.
 
 \section{Organizzazione della Repository}
 Il sistema è assolutamente riproducibile: il codice e la documentazione di \textbf{HueMate} sono stati organizzati in questa repository \url{https://github.com/marziademaina/HueMate.git} strutturata come segue:
@@ -296,14 +303,14 @@ Il sistema è assolutamente riproducibile: il codice e la documentazione di \tex
     \item[-] \texttt{/src}: contiene il codice sorgente (\texttt{main.ino}) commentato. 
     \item[-] \texttt{/report}: include la relazione finale in formato \LaTeX, la bibliografia e i media utilizzati.
     \item[-] \texttt{README.md}: il punto di accesso al progetto, con istruzioni per il montaggio e l'uso. 
-    \item[-] \textbf{LICENSE}: il file di licenza sotto cui è rilasciato HueMate.
+    \item[-] \texttt{LICENSE}: il file di licenza sotto cui è rilasciato HueMate.
 \end{itemize}
 
 \section{Conclusioni}
 Il progetto \textbf{HueMate} ha dimostrato come l'elettronica prototipale possa offrire soluzioni concrete e a basso costo per migliorare l'autonomia delle persone daltoniche. Il sistema si è rivelato affidabile nel riconoscimento dei colori e utile nel suggerire abbinamenti stilisticamente coerenti.
 
 \subsection{Sviluppi Futuri}
-Nonostante il prototipo attuale sia pienamente funzionante, sono stati individuati diversi ambiti di miglioramento per le versioni successive:
+Nonostante il prototipo attuale sia funzionante, sono stati individuati diversi ambiti di miglioramento per le versioni successive:
 
 \begin{itemize} 
     \item[-] \textbf{Integrazione Bluetooth e App Mobile}\\Sostituire il display LCD con un modulo Bluetooth per inviare i dati direttamente a uno smartphone. Questo permetterebbe di avere un'interfaccia più ricca.
@@ -312,6 +319,7 @@ Nonostante il prototipo attuale sia pienamente funzionante, sono stati individua
     \item[-] \textbf{Personalizzazione Utente}\\Implementare una funzione di \textit{apprendimento} dove l'utente può salvare nuovi abbinamenti personalizzati, adattando l'intelligenza di HueMate al proprio guardaroba specifico. 
 \end{itemize}
 
+\newpage
 \printbibliography
 
 \section*{Licenza del documento}
