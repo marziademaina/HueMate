@@ -95,7 +95,9 @@ La logica di abbinamento integra il gusto estetico con la teoria del colore:
 ---
 
 ## 🖋️ Autore
-**Marzia De Maina** *Studentessa di Informatica (LM-18)* *Università di Bologna*
+**Marzia De Maina** 
+*Studentessa di Informatica (LM-18)* 
+*Università di Bologna*
 
 ---
 
